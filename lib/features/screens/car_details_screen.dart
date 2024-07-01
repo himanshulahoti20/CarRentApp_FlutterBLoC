@@ -1,9 +1,12 @@
 import 'package:car_rent_app/data/models/car.dart';
+import 'package:car_rent_app/features/screens/maps_details_screen.dart';
 import 'package:car_rent_app/features/widgets/car_card.dart';
+import 'package:car_rent_app/features/widgets/more_card.dart';
 import 'package:flutter/material.dart';
 
 class CarDetailsScreen extends StatelessWidget {
-  const CarDetailsScreen({super.key});
+  final Car car;
+  const CarDetailsScreen({super.key, required this.car});
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +29,11 @@ class CarDetailsScreen extends StatelessWidget {
         children: [
           CarCard(
             car: Car(
-              model: 'Fortuner',
-              color: 'Black',
-              distance: 790,
-              fuelCapacity: 40,
-              pricePerHour: 20,
+              model: car.model,
+              color: car.color,
+              distance: car.distance,
+              fuelCapacity: car.fuelCapacity,
+              pricePerHour: car.pricePerHour,
             ),
           ),
           const SizedBox(
@@ -80,24 +83,83 @@ class CarDetailsScreen extends StatelessWidget {
                   width: 20,
                 ),
                 Expanded(
-                  child: Container(
-                    height: 170,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                      image: const DecorationImage(
-                        image: AssetImage(
-                          'assets/maps.png',
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MapsDetailsScreen(
+                            car: Car(
+                              model: car.model,
+                              color: car.color,
+                              distance: car.distance,
+                              fuelCapacity: car.fuelCapacity,
+                              pricePerHour: car.pricePerHour,
+                            ),
+                          ),
                         ),
-                        fit: BoxFit.cover,
-                      ),
-                      boxShadow: const [
-                        BoxShadow(
+                      );
+                    },
+                    child: Container(
+                      height: 170,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                        image: const DecorationImage(
+                          image: AssetImage(
+                            'assets/maps.png',
+                          ),
+                          fit: BoxFit.cover,
+                        ),
+                        boxShadow: const [
+                          BoxShadow(
                             color: Colors.black12,
                             blurRadius: 10,
-                            spreadRadius: 5)
-                      ],
+                            spreadRadius: 5,
+                          )
+                        ],
+                      ),
                     ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              children: [
+                MoreCard(
+                  car: Car(
+                    model: "${car.model} -1",
+                    color: car.color,
+                    distance: car.distance + 400,
+                    fuelCapacity: car.fuelCapacity + 19,
+                    pricePerHour: car.pricePerHour,
+                  ),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                MoreCard(
+                  car: Car(
+                    model: "${car.model} -2",
+                    color: car.color,
+                    distance: car.distance + 200,
+                    fuelCapacity: car.fuelCapacity + 27,
+                    pricePerHour: car.pricePerHour,
+                  ),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                MoreCard(
+                  car: Car(
+                    model: "${car.model} -3",
+                    color: car.color,
+                    distance: car.distance + 300,
+                    fuelCapacity: car.fuelCapacity + 10,
+                    pricePerHour: car.pricePerHour,
                   ),
                 ),
               ],
