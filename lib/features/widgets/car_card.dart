@@ -33,9 +33,11 @@ class CarCard extends StatelessWidget {
             ]),
         child: Column(
           children: [
-            Image.asset(
-              'assets/car_image.png',
+            Image.network(
+              car.image,
               height: 120,
+              width: double.infinity,
+              fit: BoxFit.cover,
             ),
             Text(
               car.model,

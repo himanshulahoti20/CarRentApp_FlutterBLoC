@@ -1,67 +1,40 @@
-import 'package:car_rent_app/data/models/car.dart';
+import 'package:car_rent_app/bloc/bloc/car_bloc.dart';
 import 'package:car_rent_app/features/widgets/car_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CarListScreen extends StatelessWidget {
-  final List<Car> cars = [
-    Car(
-        model: 'Fortuner',
-        color: 'Black',
-        distance: 790,
-        fuelCapacity: 40,
-        pricePerHour: 20),
-    Car(
-        model: 'Fortuner',
-        color: 'Black',
-        distance: 790,
-        fuelCapacity: 40,
-        pricePerHour: 20),
-    Car(
-        model: 'Fortuner',
-        color: 'Black',
-        distance: 790,
-        fuelCapacity: 40,
-        pricePerHour: 20),
-    Car(
-        model: 'Fortuner',
-        color: 'Black',
-        distance: 790,
-        fuelCapacity: 40,
-        pricePerHour: 20),
-    Car(
-        model: 'Fortuner',
-        color: 'Black',
-        distance: 790,
-        fuelCapacity: 40,
-        pricePerHour: 20),
-    Car(
-        model: 'Fortuner',
-        color: 'Black',
-        distance: 790,
-        fuelCapacity: 40,
-        pricePerHour: 20),
-    Car(
-        model: 'Fortuner',
-        color: 'Black',
-        distance: 790,
-        fuelCapacity: 40,
-        pricePerHour: 20),
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Choose your Car'),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-      ),
-      body: ListView.builder(
-        itemCount: cars.length,
-        itemBuilder: (context, index) {
-          return CarCard(car: cars[index]);
-        },
-      ),
+    return BlocBuilder<CarBloc, CarState>(
+      builder: (context, state) {
+        final sucessState = state.runtimeType;
+        switch (sucessState) {
+          case CarLoadingState:
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          case CarSuccessState:
+            return Scaffold(
+                appBar: AppBar(
+                  title: const Text('Choose your Car'),
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.black,
+                ),
+                body: ListView.builder(
+                  itemCount: state.cars.length,
+                  itemBuilder: (context, index) {
+                    return CarCard(car: state.cars[index]);
+                  },
+                ));
+          case CarErrorState:
+            return const Center(
+              child: Text('Error'),
+            );
+          default:
+            return const SizedBox();
+        }
+      },
     );
   }
 }

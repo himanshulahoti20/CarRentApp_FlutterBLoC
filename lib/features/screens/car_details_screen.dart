@@ -62,6 +62,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen>
         children: [
           CarCard(
             car: Car(
+              image: widget.car.image,
               model: widget.car.model,
               color: widget.car.color,
               distance: widget.car.distance,
@@ -123,6 +124,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen>
                         MaterialPageRoute(
                           builder: (context) => MapsDetailsScreen(
                             car: Car(
+                              image: widget.car.image,
                               model: widget.car.model,
                               color: widget.car.color,
                               distance: widget.car.distance,
@@ -169,6 +171,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen>
               children: [
                 MoreCard(
                   car: Car(
+                    image: widget.car.image,
                     model: "${widget.car.model} -1",
                     color: widget.car.color,
                     distance: widget.car.distance + 400,
@@ -181,6 +184,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen>
                 ),
                 MoreCard(
                   car: Car(
+                    image: widget.car.image,
                     model: "${widget.car.model} -2",
                     color: widget.car.color,
                     distance: widget.car.distance + 200,
@@ -193,6 +197,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen>
                 ),
                 MoreCard(
                   car: Car(
+                    image: widget.car.image,
                     model: "${widget.car.model} -3",
                     color: widget.car.color,
                     distance: widget.car.distance + 300,

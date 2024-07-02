@@ -29,8 +29,7 @@ class _MapsDetailsScreenState extends State<MapsDetailsScreen> {
             ),
             children: [
               TileLayer(
-                urlTemplate:
-                    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                 subdomains: const ['a', 'b', 'c'],
               ),
               const MarkerLayer(
@@ -47,14 +46,15 @@ class _MapsDetailsScreenState extends State<MapsDetailsScreen> {
               ),
             ],
           ),
-          Positioned(bottom: 0, right: 0, left: 0, child: carDetailsCard(widget.car))
+          Positioned(
+            bottom: 0, right: 0, left: 0, child: carDetailsCard(widget.car, context)),
         ],
       ),
     );
   }
 }
 
-Widget carDetailsCard(Car car) {
+Widget carDetailsCard(Car car, BuildContext context) {
   return SizedBox(
     height: 350,
     child: Stack(
@@ -168,7 +168,25 @@ Widget carDetailsCard(Car car) {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text('Booking Confirmation'),
+                              content: const Text('Car booked successfully!'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text('OK'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.black),
                       child: const Text(
@@ -187,7 +205,10 @@ Widget carDetailsCard(Car car) {
         Positioned(
           top: 20,
           right: 10,
-          child: Image.asset('assets/white_car.png',width: 180,),
+          child: Image.network(
+            car.image,
+            width: 170,
+          ),
         ),
       ],
     ),
