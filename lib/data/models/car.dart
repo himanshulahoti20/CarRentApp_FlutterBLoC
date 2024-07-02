@@ -1,4 +1,3 @@
-
 class Car {
   final String model;
   final String color;
@@ -12,4 +11,14 @@ class Car {
       required this.distance,
       required this.fuelCapacity,
       required this.pricePerHour});
+
+  factory Car.fromMap(Map<String, dynamic> data) {
+    return Car(
+      model: data['model'],
+      color: data['color'],
+      distance: data['distance'],
+      fuelCapacity: data['fuelCapacity'],
+      pricePerHour: data['pricePerHour'],
+    );
+  }
 }

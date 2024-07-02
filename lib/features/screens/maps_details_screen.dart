@@ -3,11 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
-class MapsDetailsScreen extends StatelessWidget {
+class MapsDetailsScreen extends StatefulWidget {
   const MapsDetailsScreen({super.key, required this.car});
 
   final Car car;
 
+  @override
+  State<MapsDetailsScreen> createState() => _MapsDetailsScreenState();
+}
+
+class _MapsDetailsScreenState extends State<MapsDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +47,7 @@ class MapsDetailsScreen extends StatelessWidget {
               ),
             ],
           ),
-          Positioned(bottom: 0, right: 0, left: 0, child: carDetailsCard(car))
+          Positioned(bottom: 0, right: 0, left: 0, child: carDetailsCard(widget.car))
         ],
       ),
     );

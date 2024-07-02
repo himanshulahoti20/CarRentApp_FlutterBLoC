@@ -4,9 +4,42 @@ import 'package:car_rent_app/features/widgets/car_card.dart';
 import 'package:car_rent_app/features/widgets/more_card.dart';
 import 'package:flutter/material.dart';
 
-class CarDetailsScreen extends StatelessWidget {
+class CarDetailsScreen extends StatefulWidget {
   final Car car;
   const CarDetailsScreen({super.key, required this.car});
+
+  @override
+  State<CarDetailsScreen> createState() => _CarDetailsScreenState();
+}
+
+class _CarDetailsScreenState extends State<CarDetailsScreen>
+    with SingleTickerProviderStateMixin {
+  AnimationController? _controller;
+  Animation<double>? _animation;
+
+  @override
+  void initState() {
+    _controller = AnimationController(
+      duration: const Duration(seconds: 3),
+      vsync: this,
+    );
+
+    _animation = Tween<double>(begin: 1.0, end: 1.5).animate(_controller!);
+
+    _animation!.addListener(() {
+      setState(() {});
+    });
+
+    _controller!.forward();
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller!.forward();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +62,11 @@ class CarDetailsScreen extends StatelessWidget {
         children: [
           CarCard(
             car: Car(
-              model: car.model,
-              color: car.color,
-              distance: car.distance,
-              fuelCapacity: car.fuelCapacity,
-              pricePerHour: car.pricePerHour,
+              model: widget.car.model,
+              color: widget.car.color,
+              distance: widget.car.distance,
+              fuelCapacity: widget.car.fuelCapacity,
+              pricePerHour: widget.car.pricePerHour,
             ),
           ),
           const SizedBox(
@@ -90,11 +123,11 @@ class CarDetailsScreen extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) => MapsDetailsScreen(
                             car: Car(
-                              model: car.model,
-                              color: car.color,
-                              distance: car.distance,
-                              fuelCapacity: car.fuelCapacity,
-                              pricePerHour: car.pricePerHour,
+                              model: widget.car.model,
+                              color: widget.car.color,
+                              distance: widget.car.distance,
+                              fuelCapacity: widget.car.fuelCapacity,
+                              pricePerHour: widget.car.pricePerHour,
                             ),
                           ),
                         ),
@@ -105,12 +138,6 @@ class CarDetailsScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20),
-                        image: const DecorationImage(
-                          image: AssetImage(
-                            'assets/maps.png',
-                          ),
-                          fit: BoxFit.cover,
-                        ),
                         boxShadow: const [
                           BoxShadow(
                             color: Colors.black12,
@@ -118,6 +145,17 @@ class CarDetailsScreen extends StatelessWidget {
                             spreadRadius: 5,
                           )
                         ],
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Transform.scale(
+                          scale: _animation!.value,
+                          alignment: Alignment.center,
+                          child: Image.asset(
+                            'assets/maps.png',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -131,11 +169,11 @@ class CarDetailsScreen extends StatelessWidget {
               children: [
                 MoreCard(
                   car: Car(
-                    model: "${car.model} -1",
-                    color: car.color,
-                    distance: car.distance + 400,
-                    fuelCapacity: car.fuelCapacity + 19,
-                    pricePerHour: car.pricePerHour,
+                    model: "${widget.car.model} -1",
+                    color: widget.car.color,
+                    distance: widget.car.distance + 400,
+                    fuelCapacity: widget.car.fuelCapacity + 19,
+                    pricePerHour: widget.car.pricePerHour,
                   ),
                 ),
                 const SizedBox(
@@ -143,11 +181,11 @@ class CarDetailsScreen extends StatelessWidget {
                 ),
                 MoreCard(
                   car: Car(
-                    model: "${car.model} -2",
-                    color: car.color,
-                    distance: car.distance + 200,
-                    fuelCapacity: car.fuelCapacity + 27,
-                    pricePerHour: car.pricePerHour,
+                    model: "${widget.car.model} -2",
+                    color: widget.car.color,
+                    distance: widget.car.distance + 200,
+                    fuelCapacity: widget.car.fuelCapacity + 27,
+                    pricePerHour: widget.car.pricePerHour,
                   ),
                 ),
                 const SizedBox(
@@ -155,11 +193,11 @@ class CarDetailsScreen extends StatelessWidget {
                 ),
                 MoreCard(
                   car: Car(
-                    model: "${car.model} -3",
-                    color: car.color,
-                    distance: car.distance + 300,
-                    fuelCapacity: car.fuelCapacity + 10,
-                    pricePerHour: car.pricePerHour,
+                    model: "${widget.car.model} -3",
+                    color: widget.car.color,
+                    distance: widget.car.distance + 300,
+                    fuelCapacity: widget.car.fuelCapacity + 10,
+                    pricePerHour: widget.car.pricePerHour,
                   ),
                 ),
               ],
